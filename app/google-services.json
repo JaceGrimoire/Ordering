@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "699682506290",
+    "firebase_url": "https://larga-c50ac.firebaseio.com",
+    "project_id": "larga-c50ac",
+    "storage_bucket": "larga-c50ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699682506290:android:88e45e04c31138ccbbde2b",
+        "android_client_info": {
+          "package_name": "com.example.ordering"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699682506290-rjg139g0gptor4ql8cc7l8am7uf2mcpu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDYElvgfworth3DVz4jxlYoMHcoXg6REI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699682506290-rjg139g0gptor4ql8cc7l8am7uf2mcpu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
