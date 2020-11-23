@@ -35,12 +35,13 @@ public class FoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
+
         toolbar = findViewById(R.id.food_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Bundle extras = getIntent().getExtras();
-//        String selectedRestaurant = extras.getString("sel_res");
-        selectedRestaurant = "Mang_Inasal";
+        selectedRestaurant = extras.getString("sel_res");
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
 

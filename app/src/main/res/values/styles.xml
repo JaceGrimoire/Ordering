@@ -95,4 +95,14 @@
         <item name="android:minWidth">250dp</item>
     </style>
     <style parent="ThemeOverlay.AppCompat.Light" name="AppTheme.PopupOverlay"/>
+
+    <style name="CollapsedBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="ExpandedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

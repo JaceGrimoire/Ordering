@@ -121,9 +121,8 @@ public class HomeFragment extends Fragment {
         cv_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FoodActivity.class);
+                Intent intent = new Intent(getActivity(), RestaurantActivity.class);
                 startActivity(intent);
-
             }
         });
 

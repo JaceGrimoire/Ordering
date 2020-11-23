@@ -1,11 +1,11 @@
 package com.example.ordering;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -86,12 +86,14 @@ public class FoodFragment extends Fragment{
         recyclerViewClickInterface = new RecyclerViewClickInterface() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(getContext(), foods.get(position).getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), OrderActivity.class);
+                intent.putExtra("food", foods.get(position).getName());
+                intent.putExtra("price", foods.get(position).getPrice());
+                startActivity(intent);
             }
 
             @Override
             public void onLongItemClick(int position) {
-                Toast.makeText(getContext(), String.valueOf(foods.get(position).getPrice()), Toast.LENGTH_SHORT).show();
             }
         };
         foods = new ArrayList<>();
