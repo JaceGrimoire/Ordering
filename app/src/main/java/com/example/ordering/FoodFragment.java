@@ -83,19 +83,7 @@ public class FoodFragment extends Fragment{
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewClickInterface = new RecyclerViewClickInterface() {
-            @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(getActivity(), OrderActivity.class);
-                intent.putExtra("food", foods.get(position).getName());
-                intent.putExtra("price", foods.get(position).getPrice());
-                startActivity(intent);
-            }
 
-            @Override
-            public void onLongItemClick(int position) {
-            }
-        };
         foods = new ArrayList<>();
         sTitle = getArguments().getString("title");
 
@@ -134,6 +122,19 @@ public class FoodFragment extends Fragment{
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Food food = snapshot.getValue(Food.class);
                     foods.add(food);
+                    recyclerViewClickInterface = new RecyclerViewClickInterface() {
+                        @Override
+                        public void onItemClick(int position) {
+                            Intent intent = new Intent(getActivity(), OrderActivity.class);
+                            intent.putExtra("food", foods.get(position).getName());
+                            intent.putExtra("price", foods.get(position).getPrice());
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onLongItemClick(int position) {
+                        }
+                    };
                     adapter = new RecyclerViewHolder(getActivity(),foods, recyclerViewClickInterface);
                     recyclerView.setAdapter(adapter);
                 }
@@ -144,6 +145,5 @@ public class FoodFragment extends Fragment{
                 }
             });
         }
-
     }
 }
