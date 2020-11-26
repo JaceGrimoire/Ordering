@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -47,9 +49,10 @@ public class HomeFragment extends Fragment {
     private DatabaseReference mRef;
     private CardView cv_food;
     private CardView cv_errands;
+    private String uid;
 
-    public HomeFragment() {
-        // Required empty public constructor
+    public HomeFragment(String user) {
+        uid = user;
     }
 
     /**
@@ -62,7 +65,7 @@ public class HomeFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+        HomeFragment fragment = new HomeFragment(param1);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -117,11 +120,20 @@ public class HomeFragment extends Fragment {
         cv_food = getView().findViewById(R.id.cv_Food);
 
         cv_ride.setClickable(true);
+        cv_ride.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), OriginActivity.class);
+                startActivity(intent);
+            }
+        });
         cv_food.setClickable(true);
         cv_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                OrderDatabase.getInstance().setOrdersArrayList(new ArrayList<Orders>());
                 Intent intent = new Intent(getActivity(), RestaurantActivity.class);
+                intent.putExtra("user", uid);
                 startActivity(intent);
             }
         });

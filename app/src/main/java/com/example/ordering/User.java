@@ -1,12 +1,12 @@
 package com.example.ordering;
 
 public class User {
-    public String firstName, lastName, address, number, email, bday, city, province;
+    public String uid, firstName, lastName, address, number, email, bday, city, province;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String address, String number, String email, String bday, String city, String province) {
+    public User(String firstName, String lastName, String address, String number, String email, String bday, String city, String province, String uid) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -15,6 +15,12 @@ public class User {
         this.bday = bday;
         this.city = city;
         this.province = province;
+        this.uid = uid;
+    }
+
+    public String getUid() {return uid;}
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getFirstName() {

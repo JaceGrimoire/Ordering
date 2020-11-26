@@ -124,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else {
             mDatabase = FirebaseDatabase.getInstance();
             mRef = mDatabase.getReference("users");
-            User user = new User(inputFirstName, inputLastName, inputAddress, inputNumber, inputEmail, inputBday, inputCity, inputProvince);
+            User user = new User(inputFirstName, inputLastName, inputAddress, inputNumber, inputEmail, inputBday, inputCity, inputProvince, uid);
             mRef.child(uid).setValue(user);
             Toast.makeText(RegisterActivity.this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);

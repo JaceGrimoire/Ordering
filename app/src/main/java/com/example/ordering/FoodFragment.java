@@ -128,6 +128,8 @@ public class FoodFragment extends Fragment{
                             Intent intent = new Intent(getActivity(), OrderActivity.class);
                             intent.putExtra("food", foods.get(position).getName());
                             intent.putExtra("price", foods.get(position).getPrice());
+                            intent.putExtra("sel_res", getArguments().getString("restaurant"));
+                            intent.putExtra("user", getArguments().getString("user"));
                             startActivity(intent);
                         }
 

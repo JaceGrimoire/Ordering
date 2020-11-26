@@ -30,6 +30,8 @@ public class RestaurantActivity extends AppCompatActivity implements RecyclerVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
 
+        final Bundle extras = getIntent().getExtras();
+
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("menu");
         restaurantList = new ArrayList<>();
@@ -51,14 +53,16 @@ public class RestaurantActivity extends AppCompatActivity implements RecyclerVie
         recyclerView = findViewById(R.id.restaurant_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(RestaurantActivity.this, FoodActivity.class);
         intent.putExtra("sel_res", restaurantList.get(position));
+        intent.putExtra("user", getIntent().getExtras().getString("user"));
         startActivity(intent);
+
+
     }
 
     @Override

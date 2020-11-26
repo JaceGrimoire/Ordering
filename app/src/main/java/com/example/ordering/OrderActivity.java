@@ -1,5 +1,6 @@
 package com.example.ordering;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ public class OrderActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String food;
     double price;
+    private String restaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +35,10 @@ public class OrderActivity extends AppCompatActivity {
 
         btnCart = findViewById(R.id.btnCart);
 
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = getIntent().getExtras();
         food = extras.getString("food");
         price = extras.getDouble("price");
+        restaurant = extras.getString("sel_res");
 
         Log.d("Food", food + " " + price);
 
@@ -51,7 +54,7 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String num = food_qty.getText().toString();
-                if(num == "") {
+                if(num.equals("")) {
                     food_qty.setText("1");
                 }
                 else {
@@ -65,11 +68,12 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String num = food_qty.getText().toString();
-                if(num == "") {
-                    food_qty.setText("0");
+                Log.d("TEST", num);
+                if(num.equals("")) {
+                    food_qty.setText("1");
                 }
-                else if(num == "0"){
-                    food_qty.setText("0");
+                else if(num.equals("1")){
+                    food_qty.setText("1");
                 }
                 else {
                     food_qty.setText(String.valueOf(Integer.parseInt(num) - 1));
@@ -78,16 +82,35 @@ public class OrderActivity extends AppCompatActivity {
         });
 
         toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("Order");
 
+
+        food_qty.setText("1");
         food_name.setText(food);
         food_price.setText(String.valueOf(price));
         collapsingToolbarLayout = findViewById(R.id.collapse);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
         collapsingToolbarLayout.setCollapsedTitleTextColor(R.style.CollapsedBar);
+        collapsingToolbarLayout.setTitleEnabled(false);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitle("Order");
 
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Orders order = new Orders();
+                order.setFoodName(food);
+                order.setPrice(price);
+                order.setQty(Integer.parseInt(food_qty.getText().toString()));
+                order.setRestaurant(restaurant);
+                OrderDatabase.getInstance().getOrdersArrayList().add(order);
+
+                Intent intent = new Intent(OrderActivity.this, FoodActivity.class);
+                intent.putExtra("sel_res", extras.getString("sel_res"));
+                intent.putExtra("user", getIntent().getExtras().getString("user"));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

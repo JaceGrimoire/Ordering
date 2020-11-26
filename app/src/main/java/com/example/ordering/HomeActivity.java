@@ -21,16 +21,17 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         email = user.getEmail();
         uid = user.getUid();
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.containerCart, new HomeFragment(uid)).commit();
 
         Log.d("Test Email: ", email);
         Log.d("Test UID: ", uid);
@@ -44,7 +45,10 @@ public class HomeActivity extends AppCompatActivity {
 
                     switch (item.getItemId()) {
                         case R.id.navigation_home:
-                            selectedFragment = new HomeFragment();
+                            selectedFragment = new HomeFragment(uid);
+                            break;
+                        case R.id.navigation_users:
+                            selectedFragment = new UsersFragment();
                             break;
                         case R.id.navigation_messages:
                             selectedFragment = new MessagesFragment();
@@ -53,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
                             selectedFragment = new ProfileFragment();
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, selectedFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.containerCart, selectedFragment).commit();
 
                     return true;
                 }

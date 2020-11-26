@@ -110,7 +110,7 @@
                 <ImageView
                     android:id="@+id/mobileImageView"
                     style="@style/profileDetailsImage"
-                    android:src="@drawable/ic_mobile" />
+                    app:srcCompat="@drawable/ic_phone" />
 
                 <TextView
                     style="@style/profileDetailsTextMain"
@@ -162,10 +162,11 @@
             </RelativeLayout>
             <View style="@style/proifleDetailsView" />
             <RelativeLayout style="@style/profileDetailsLayout">
+
                 <ImageView
                     android:id="@+id/dobImageView"
-                    android:src="@drawable/ic_dob"
-                    style="@style/profileDetailsImage" />
+                    style="@style/profileDetailsImage"
+                    app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
                 <TextView
                     style="@style/profileDetailsTextMain"
