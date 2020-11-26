@@ -16,8 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderActivity"></activity>
-        <activity android:name=".RestaurantActivity" />
+        <activity android:name=".WaitingRideActivity"></activity>
+        <activity android:name=".ConfirmationActivity" />
+        <activity android:name=".DestinationActivity" />
+        <activity android:name=".OriginActivity" />
+        <activity android:name=".CartActivity" />
+        <activity android:name=".MessageActivity" />
         <activity android:name=".FoodActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -44,6 +48,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RestaurantActivity" />
+        <activity android:name=".OrderActivity" />
     </application>
 
 </manifest>

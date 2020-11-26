@@ -7,6 +7,11 @@
         android:title="@string/title_home" />
 
     <item
+        android:id="@+id/navigation_users"
+        android:icon="@drawable/ic_baseline_account_box_24"
+        android:title="Users" />
+
+    <item
         android:id="@+id/navigation_messages"
         android:icon="@drawable/ic_baseline_message_24"
         android:title="@string/title_dashboard" />

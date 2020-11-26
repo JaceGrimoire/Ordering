@@ -1,7 +1,10 @@
 package com.example.ordering;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +29,7 @@ public class FoodActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     private Toolbar toolbar;
+    private Button btnCheckout;
 
     private FirebaseDatabase database;
     private DatabaseReference reference;
@@ -44,10 +48,12 @@ public class FoodActivity extends AppCompatActivity {
         selectedRestaurant = extras.getString("sel_res");
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
+        btnCheckout =findViewById(R.id.btnFoodActivityCart);
 
         arrayList = new ArrayList<>();
         toolbar.setTitle(selectedRestaurant);
         database = FirebaseDatabase.getInstance();
+
         reference = database.getReference("menu").child(selectedRestaurant);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -63,6 +69,15 @@ public class FoodActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("TEST DB", error.toString());
+            }
+        });
+
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FoodActivity.this, CartActivity.class);
+                intent.putExtra("user", getIntent().getExtras().getString("user"));
+                startActivity(intent);
             }
         });
     }
@@ -83,6 +98,7 @@ public class FoodActivity extends AppCompatActivity {
             adapter.addFragment(fragment, arrayList.get(i));
             fragment = new FoodFragment();
             bundle.putString("restaurant", selectedRestaurant);
+            bundle.putString("user",getIntent().getExtras().getString("user"));
         }
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
