@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 public class RiderActivity extends AppCompatActivity {
 
@@ -17,7 +17,7 @@ public class RiderActivity extends AppCompatActivity {
     private Button btnEnter;
     private Button btnUser;
 
-    private String Number = "09123456789";
+    private String Number = "12345";
     private String Password = "12345";
 
     boolean isValid = false;
@@ -46,7 +46,7 @@ public class RiderActivity extends AppCompatActivity {
                         Toast.makeText(RiderActivity.this, "Incorrect, please try again!", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(RiderActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RiderActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(RiderActivity.this, HomeRiderActivity.class);
                         startActivity(intent);
                     }
                 }

@@ -8,6 +8,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 
 
 class BrowseUserRequests : AppCompatActivity() {
@@ -22,35 +24,55 @@ class BrowseUserRequests : AppCompatActivity() {
         const val EXTRA_ORIGIN_ADDRESS = "extra_origin_addr"
         const val EXTRA_DESTINATION_ADDRESS = "extra_dest_addr"
     }
+    private lateinit var database : FirebaseDatabase
+    private lateinit var reference : DatabaseReference
 
     private lateinit var rcvRequests: RecyclerView
-    // TODO: Replace the data coming from the database
-    private var userData = arrayOf(
-            UserRequest(
-                    "test1",
-                    "Jan Carlo V. Tolentino",
-                    18.1960,
-                    120.5927,
-                    18.2704,
-                    120.6085,
-                    "San Nicholas, Ilocos Norte",
-                    "Laoag City, Ilocos Norte"
-            ),
-            UserRequest(
-                    "test2",
-                    "Renzther James Barnido",
-                    10.0,
-                    11.0,
-                    10.0,
-                    11.0,
-                    "San Nicholas, Ilocos Norte",
-                    "Laoag City, Ilocos Norte"
-            )
-    )
+    private lateinit var userData : ArrayList<UserRequest>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_browser_requests)
+        setContentView(R.layout.activity_browse_user_requests)
+
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("rider_requests")
+
+        lateinit var list : ArrayList<String>
+
+        val getKeys = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val children = snapshot!!.children
+                children.forEach {
+                    it.key?.let { it1 -> list.add(it1) }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("Firebase", error.message);
+            }
+
+        }
+        reference.addValueEventListener(getKeys)
+
+        //LOOP HERE ON list ArrayList<String> which contains all the keys of the rider_request
+        //for(int i = 0; i < list.size; i++) {
+            val users = object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val post = snapshot.getValue<UserRequest>()
+                    if (post != null) {
+                        userData.add(post)
+                    };
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            }
+
+            reference.child(list.get(i)).addValueEventListener(users)
+        //}
+        //Loop until here
+
 
         rcvRequests = findViewById(R.id.rcv_requests)
         rcvRequests.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
