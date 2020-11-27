@@ -140,15 +140,6 @@ class OriginActivity : AppCompatActivity(), OnMapReadyCallback {
                             if (report.areAllPermissionsGranted()) {
                                 // Permission granted
                                 toast("Identifying your current location...")
-                                // Get the current location
-//                            fusedLocationClient.lastLocation.addOnSuccessListener {
-//                                Log.i(localClassName, "Successfully listened to location")
-//                                if (it == null) {
-//                                    Log.e(localClassName, "The retrieved location is null")
-//                                } else {
-//                                    Log.i(localClassName, "The location has been retrieved")
-//                                }
-//                            }
                                 fusedLocationClient.lastLocation.addOnCompleteListener {
                                     val location = it.result
                                     if (location == null) {

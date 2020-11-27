@@ -16,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WaitingRideActivity"></activity>
+        <activity android:name=".HomeRiderActivity"></activity>
+        <activity android:name=".BrowseUserRequests" />
+        <activity android:name=".OnRideDutyActivity" />
+        <activity android:name=".WaitingRideActivity" />
         <activity android:name=".ConfirmationActivity" />
         <activity android:name=".DestinationActivity" />
         <activity android:name=".OriginActivity" />

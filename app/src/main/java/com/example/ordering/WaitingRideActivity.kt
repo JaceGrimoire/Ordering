@@ -17,7 +17,7 @@ class WaitingRideActivity : AppCompatActivity() {
     lateinit var database: FirebaseDatabase
     lateinit var reference: DatabaseReference
     lateinit var mAuth: FirebaseAuth
-    lateinit var txtMessage : TextView
+    lateinit var txtMessage: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ class WaitingRideActivity : AppCompatActivity() {
         val destLong = intent.getDoubleExtra(DestinationActivity.EXTRA_USER_DEST_LONG, 0.0)
         txtMessage = findViewById(R.id.textView4);
 
-        val location = Location(originLat, originLong, destLat,destLong,uid,"0", "waiting")
+        val location = Location(originLat, originLong, destLat, destLong, uid, "0", "waiting")
         Log.d("Test", "$originLat $originLong $destLat $destLong");
         reference = database.getReference("rider_requests");
         val key = reference.push().key;
@@ -45,13 +45,13 @@ class WaitingRideActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val post = snapshot.getValue<Location>()
                 if (post != null) {
-                    if(post.getState() == "responded") {
-                        txtMessage.setText("A rider has responded to you! Standby for the arrival")
+                    when {
+                        post.getState() == "responded" -> {
+                            txtMessage.text = "A rider has responded to you! Standby for the arrival"
+                        }
+                        post.getState() == "arrived" -> txtMessage.text = "The rider has arrived to pick you up! Have a safe trip!"
+                        post.getState() == "completed" -> txtMessage.text = "You have arrived at your destination! Thank you for riding with us!"
                     }
-                    else if(post.getState() == "arrived")
-                        txtMessage.setText("The rider has arrived to pick you up! Have a safe trip!")
-                    else if(post.getState() == "completed")
-                        txtMessage.setText("You have arrived at your destination! Thank you for riding with us!")
                 }
             }
 
